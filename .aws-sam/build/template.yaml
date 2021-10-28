@@ -1,8 +1,7 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: >-
-  torrent-check-serverless
+Description: torrent-check-serverless
 Transform:
-  - AWS::Serverless-2016-10-31
+- AWS::Serverless-2016-10-31
 Resources:
   SQSQueueTransmission:
     Type: AWS::SQS::Queue
@@ -15,27 +14,28 @@ Resources:
   SQSPayloadLogger:
     Type: AWS::Serverless::Function
     Properties:
-      Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
+      Description: A Lambda function that logs the payload of messages sent to an
+        associated SQS queue.
       Runtime: nodejs14.x
-      FunctionName: torrent-check
       Architectures:
-        - x86_64
+      - x86_64
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
       Events:
         SQS1:
           Type: SQS
           Properties:
             Queue:
-              'Fn::GetAtt':
-                - SQSQueueTransmission
-                - Arn
-            BatchSize: 1    
+              Fn::GetAtt:
+              - SQSQueueTransmission
+              - Arn
+            BatchSize: 1
       EventInvokeConfig:
         DestinationConfig:
           OnSuccess:
             Type: SQS
             Destination: arn:aws:sqs:eu-west-1:836783797541:torrent-checked-pro
       MemorySize: 128
-      Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
+      Timeout: 25
       Policies:
-        - AWSLambdaBasicExecutionRole
+      - AWSLambdaBasicExecutionRole
+      CodeUri: SQSPayloadLogger

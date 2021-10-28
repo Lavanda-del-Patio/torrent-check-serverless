@@ -17,7 +17,6 @@ Resources:
     Properties:
       Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
       Runtime: nodejs14.x
-      FunctionName: torrent-check
       Architectures:
         - x86_64
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
