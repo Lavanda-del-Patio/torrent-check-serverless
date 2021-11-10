@@ -17,6 +17,7 @@ Resources:
     Properties:
       Description: A Lambda function that logs the payload of messages sent to an associated SQS queue.
       Runtime: nodejs14.x
+      FunctionName: torrent-check
       Architectures:
         - x86_64
       Handler: src/handlers/sqs-payload-logger.sqsPayloadLoggerHandler
@@ -25,15 +26,13 @@ Resources:
           Type: SQS
           Properties:
             Queue:
-              'Fn::GetAtt':
+              "Fn::GetAtt":
                 - SQSQueueTransmission
                 - Arn
-            BatchSize: 1    
-      EventInvokeConfig:
-        DestinationConfig:
-          OnSuccess:
-            Type: SQS
-            Destination: arn:aws:sqs:eu-west-1:836783797541:torrent-checked-pro
+            BatchSize: 1
+      Environment:
+        Variables:
+          SQS_QUEUE_URL: "https://sqs.eu-west-1.amazonaws.com/836783797541/torrent-checked-pro"
       MemorySize: 128
       Timeout: 25 # Chosen to be less than the default SQS Visibility Timeout of 30 seconds
       Policies:
