@@ -1,11 +1,32 @@
 version = 0.1
-[default]
-[default.deploy]
-[default.deploy.parameters]
-stack_name = "torrent-check"
+
+[dev.deploy.parameters]
+stack_name = "torrent-check-dev"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-7lno1r3muddd"
-s3_prefix = "torrent-check"
+s3_prefix = "torrent-check-dev"
 region = "eu-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+parameter_overrides = "Environment=dev"
+
+[pre.deploy.parameters]
+stack_name = "torrent-check-pre"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-7lno1r3muddd"
+s3_prefix = "torrent-check-pre"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "Environment=pre"
+
+
+[pro.deploy.parameters]
+stack_name = "torrent-check-pro"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-7lno1r3muddd"
+s3_prefix = "torrent-check-pro"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+parameter_overrides = "Environment=pro"

@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "aws-sdk": "^2.782.0",
+        "aws-sdk": "^2.1028.0",
         "parse-torrent": "9.1.4"
     },
     "devDependencies": {
